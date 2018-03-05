@@ -57,7 +57,13 @@ def login():
             return redirect(url_for("secure_page"))  # they should be redirected to a secure-page route instead
     return render_template("login.html", form=form)
 
-
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash("You have logged out","danger")
+    return redirect(url_for('home'))
+    
 # user_loader callback. This callback is used to reload the user object from
 # the user ID stored in the session
 @login_manager.user_loader
